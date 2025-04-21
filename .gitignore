@@ -1,0 +1,12 @@
+# Ignore secret config file
+config.py
+
+# Ignore compiled files
+__pycache__/
+*.pyc
+
+# Ignore environment files
+.env
+
+# Optional: ignore Streamlit secrets file
+.streamlit/secrets.toml

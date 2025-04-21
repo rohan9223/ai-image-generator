@@ -4,9 +4,10 @@ from PIL import Image
 import requests
 from io import BytesIO
 from config import api_key
+
 # Together.ai API Setup
 client = OpenAI(
-    api_key = api_key,  
+    api_key=api_key,  
     base_url="https://api.together.xyz/v1"
 )
 
@@ -16,40 +17,37 @@ st.title("🎨 AI Image Generator (Text → Image)")
 
 # ——— UI Inputs ———
 with st.form("image_gen_form"):
+    st.markdown("### 📝 Prompt (Required)")
     base_prompt = st.text_area(
-        "📝 Base Prompt",
+        "Describe what you want to generate *",
         placeholder="e.g. wearing an Instagram outfit in Canggu, Bali"
     )
+    st.caption("All other settings below are optional and help personalize your image.")
 
-    gender = st.selectbox("🚻 Gender", ["Any", "Male", "Female"])
-    ethnicity = st.selectbox(
-        "👩‍🎨 Model Ethnicity",
-        ["Any", "White", "Asian", "African", "Hispanic", "Middle Eastern", "Mixed"]
-    )
-    age = st.selectbox(
-        "🎂 Age Group",
-        ["Any", "Child", "Teenager", "Adult", "Elderly"]
-    )
-    style = st.selectbox(
-        "💄 Style",
-        ["Any", "Studio", "Candid", "Editorial", "Vintage", "Futuristic", "Street"]
-    )
-    lighting = st.selectbox(
-        "💡 Lighting",
-        ["Any", "Natural", "Studio", "Moody", "High Contrast"]
-    )
-    background = st.selectbox(
-        "🌅 Background",
-        ["Any", "Urban", "Nature", "Beach", "Indoor", "Studio"]
-    )
+    gender = st.selectbox("🚻 Gender (Optional)", ["Any", "Male", "Female"])
+    ethnicity = st.selectbox("👩‍🎨 Model Ethnicity (Optional)", [
+        "Any", "White", "Asian", "African", "Hispanic", "Middle Eastern", "Mixed"
+    ])
+    age = st.selectbox("🎂 Age Group (Optional)", [
+        "Any", "Child", "Teenager", "Adult", "Elderly"
+    ])
+    style = st.selectbox("💄 Style (Optional)", [
+        "Any", "Studio", "Candid", "Editorial", "Vintage", "Futuristic", "Street"
+    ])
+    lighting = st.selectbox("💡 Lighting (Optional)", [
+        "Any", "Natural", "Studio", "Moody", "High Contrast"
+    ])
+    background = st.selectbox("🌅 Background (Optional)", [
+        "Any", "Urban", "Nature", "Beach", "Indoor", "Studio"
+    ])
     size = st.selectbox("📐 Image Size", ["512x512", "768x768", "1024x1024"])
 
     submit = st.form_submit_button("✨ Generate Image")
 
 # ——— On Generate ———
 if submit:
-    if not base_prompt:
-        st.warning("Please enter a base prompt.")
+    if not base_prompt.strip():
+        st.warning("❗ Prompt is required. Please enter a prompt to continue.")
     else:
         # Build detailed prompt
         parts = [base_prompt.strip()]
@@ -79,7 +77,7 @@ if submit:
                 image = Image.open(BytesIO(requests.get(url).content))
                 st.image(image, caption="🧠 AI‑Generated Image", use_container_width=True)
                 st.success("Done! Right‑click or long‑press to save.")
-                
+
             except Exception as e:
                 error_msg = str(e)
                 if "image may contain NSFW content" in error_msg:

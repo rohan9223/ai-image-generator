@@ -3,7 +3,7 @@ from openai import OpenAI
 from PIL import Image
 import requests
 from io import BytesIO
-#from config import api_key
+from config import api_key
 
 # Together.ai API Setup
 client = OpenAI(

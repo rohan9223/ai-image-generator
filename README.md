@@ -3,7 +3,7 @@
 A **Generative AI Image Generator** that transforms text prompts into beautiful images, powered by **FLUX.1-schnell-Free model** and built with **Streamlit**. Create stunning visual artwork from simple text descriptions.
 
 ## 🚀 Live Demo
-Try it out here: https://photoai.streamlit.app/](https://ai-image-generator-cosz.onrender.com
+Try it out here: https://ai-image-generator-cosz.onrender.com
 
 ---
 
